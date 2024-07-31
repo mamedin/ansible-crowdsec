@@ -26,9 +26,19 @@
     update_cache: yes
     name: crowdsec-firewall-bouncer-nftables
     state: present
-  when: 
+  when:
     - crowdsec_install_firewall_bouncer == true 
     - ansible_os_family | lower == "debian"
+
+- name: Crowdsec-firewall-bouncer-nftables
+  package:
+    update_cache: yes
+    name: crowdsec-firewall-bouncer-nftables
+    state: present
+  when:
+    - ansible_os_family | lower == "redhat"
+    - ansible_distribution_major_version > '7'
+    - crowdsec_install_firewall_bouncer == true
 
 - name: Crowdsec-firewall-bouncer-iptables
   package: 
